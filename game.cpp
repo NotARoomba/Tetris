@@ -1,7 +1,7 @@
 #include <string> 
-#include <SDL.h>
-#include <SDL_timer.h>
-#include <SDL_ttf.h>
+#include <SDL2/SDL.h>
+#include <SDL2/SDL_timer.h>
+#include <SDL2/SDL_ttf.h>
 #include "blocks.cpp"
 
 #define SCREEN_WIDTH 480
@@ -29,7 +29,7 @@ public:
 	void events() {
 		tick = SDL_GetTicks();
 		if (SDL_GetTicks() - tick < (1000 / FPS)) SDL_Delay(1000 / FPS - (SDL_GetTicks() - tick));
-		//std::cout << "FPS: " << 1000 / (SDL_GetTicks() - tick) << " BlockTicks: " << SDL_GetTicks() - blockTick << std::endl;
+		std::cout << "FPS: " << 1000 / (SDL_GetTicks() - tick) << " BlockTicks: " << SDL_GetTicks() - blockTick << std::endl;
 		if (SDL_GetTicks() - blockTick > 1000) {
 			int n = blocks.events();
 			n == -1 ? gameOver() : updateScore(n);
@@ -70,7 +70,7 @@ public:
 		SDL_SetRenderDrawColor(renderer, 0, 0, 0, 255);
 		SDL_RenderClear(renderer);
 		blocks.draw(renderer);
-		SDL_SetRenderDrawColor(renderer, 60, 60, 60, 10);
+		SDL_SetRenderDrawColor(renderer, 48, 48, 48, 255);
 		for (int i = (SCREEN_WIDTH / 12); i < (SCREEN_WIDTH); i += SCREEN_WIDTH/12) {
 			SDL_RenderDrawLineF(renderer, i, (SCREEN_WIDTH / 12), i, SCREEN_HEIGHT - (SCREEN_WIDTH / 12));
 		}
@@ -102,7 +102,7 @@ public:
 		SDL_Color textColor = { 255, 255, 255 };
 		SDL_Surface* textSurface = TTF_RenderText_Solid(font, text.c_str(), textColor);
 		SDL_Texture* textTexture = SDL_CreateTextureFromSurface(renderer, textSurface);
-		SDL_Rect textRect = { x, y, textSurface->w, textSurface->h };
+		SDL_Rect textRect = { static_cast<int>(x), static_cast<int>(y), textSurface->w, textSurface->h };
 		SDL_RenderCopy(renderer, textTexture, NULL, &textRect);
 		SDL_FreeSurface(textSurface);
 		SDL_DestroyTexture(textTexture);

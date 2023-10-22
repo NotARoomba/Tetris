@@ -1,5 +1,6 @@
+#include <algorithm>
 #include <iostream>
-#include <SDL.h>
+#include <SDL2/SDL.h>
 #include <vector>
 #include <time.h>
 
@@ -59,9 +60,9 @@ public:
 			Block block;
 			block.pos.x = 0;
 			block.pos.y = i * (screenWidth / 12);
-			block.color.r = 120;
-			block.color.g = 120;
-			block.color.b = 120;
+			block.color.r = 60;
+			block.color.g = 60;
+			block.color.b = 60;
 			block.color.a = 255;
 			block.moveable = false;
 			border.push_back(block);
@@ -71,9 +72,9 @@ public:
 			Block block;
 			block.pos.x = i * (screenWidth / 12);
 			block.pos.y = screenHeight - (screenWidth / 12);
-			block.color.r = 120;
-			block.color.g = 120;
-			block.color.b = 120;
+			block.color.r = 60;
+			block.color.g = 60;
+			block.color.b = 60;
 			block.color.a = 255;
 			block.moveable = false;
 			border.push_back(block);
@@ -83,9 +84,9 @@ public:
 			Block block;
 			block.pos.x = screenWidth - (screenWidth / 12);
 			block.pos.y = i * (screenWidth / 12);
-			block.color.r = 120;
-			block.color.g = 120;
-			block.color.b = 120;
+			block.color.r = 60;
+			block.color.g = 60;
+			block.color.b = 60;
 			block.color.a = 255;
 			block.moveable = false;
 			border.push_back(block);
@@ -95,9 +96,9 @@ public:
 			Block block;
 			block.pos.x = i * (screenWidth / 12);
 			block.pos.y = 0;
-			block.color.r = 120;
-			block.color.g = 120;
-			block.color.b = 120;
+			block.color.r = 60;
+			block.color.g = 60;
+			block.color.b = 60;
 			block.color.a = 255;
 			block.moveable = false;
 			border.push_back(block);
@@ -155,6 +156,7 @@ public:
 			add();
 			return gameOver() ? -1 : check();
 		}
+		return 0;
 	}
 	void rotate() {
 		bool rotate = current[0].color.r + current[0].color.g == 510 ? false : true;
